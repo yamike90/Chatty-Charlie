@@ -18,19 +18,23 @@ import logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
-# Обработка команд
-def startCommand(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text='Привет, давай пообщаемся?')
-def textMessage(bot, update):
-    response = 'Получил Ваше сообщение: ' + update.message.text
+# Функции обработки
+def start(bot, update):
+    bot.send_message(chat_id=update.message.chat_id, text='Приветствую! Готов к общению.')
+def echo(bot, update):
+    response = 'Вы прислали: ' + update.message.text
     bot.send_message(chat_id=update.message.chat_id, text=response)
+
 # Хендлеры
-start_command_handler = CommandHandler('start', startCommand)
-text_message_handler = MessageHandler(Filters.text, textMessage)
-# Добавляем хендлеры в диспетчер
-dispatcher.add_handler(start_command_handler)
-dispatcher.add_handler(text_message_handler)
-# Начинаем поиск обновлений
+start_handler = CommandHandler('start', start) #обработчик для /start
+echo_handler = MessageHandler(Filters.text, echo) #обработчик для сообщения, эхо
+
+# добавить хендлеры в диспетчер
+dispatcher.add_handler(start_handler)
+dispatcher.add_handler(echo_handler)
+
+# Поиск обновлений
 updater.start_polling(clean=True)
+
 # Останавливаем бота, если были нажаты Ctrl + C
 updater.idle()
