@@ -4,7 +4,7 @@ Telegram bot @ChattyCharlieBot based on:
 
 python-telegram-bot
 
-apiai
+dialogflow-python-client
 
 # Installation:
 
